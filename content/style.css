@@ -1,0 +1,31 @@
+@charset "windows-1251";
+.header h1{
+	color:#F14D50;
+	font-family:Verdana;
+	font-style:italic;
+	text-align:center;
+}
+h2{
+	color:#F37274;
+	font-family:Cambria;
+	font-style:oblique;
+}
+p{
+	color:#000000;
+	font-family:serif;
+}
+body{
+	background-color:#C5C0C1;
+}
+
+h2.green{
+	color:green;
+}
+
+.header{
+	height:auto;
+	background-color:#949494;
+	padding: 20px auto;
+	margin:auto;
+}
+.c
