@@ -25,18 +25,14 @@ public class FileServer {
             }
         }
         if (file.isDirectory()){
-            writer.write("HTTP/1.1 200 OK\r\n" +
-                    "Server: JavaServer\r\n" +
-                    "Content-Type: text \r\n" +
-                    "Connection: close\r\n\r\n" +
-                    "<html>" +
-                    "<body>" +
-                    "<h1>" +file.getName()+ " is Directory !</h1>" +
+            ServerConnector.htmlResponse("<h1>" +
+                    file.getName() +
+                    " is Directory !</h1>" +
                     "<h2> File in directory:<h2>" +
-                    Arrays.toString(file.list())+
-                    "</body>" +
-                    "</html>");
-            writer.flush();
+                    Arrays.toString(file.list()), writer);
+        }
+        if (!file.canRead()) {
+            ServerConnector.htmlResponse( "<h1>" +file.getName()+ " file not found !</h1>", writer);
         }
     }
 }

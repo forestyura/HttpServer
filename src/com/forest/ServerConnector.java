@@ -34,19 +34,9 @@ public class ServerConnector extends Thread {
                 new FileServer().getFile("index.html", outputStream);
             }
             else if (uri.contains("calculate")) {
-                writer.write("HTTP/1.1 200 OK\r\n" +
-                        "Server: JavaServer\r\n" +
-                        "Content-Type: text \r\n" +
-                        "Connection: close\r\n\r\n" +
-                        "<html>" +
-                        "<body>" +
-                        "<h1> Answer: " +
+                htmlResponse("<h1> Answer: " +
                         new Calculator(uri).calc() +
-                        "</h1>" +
-                        "</body>" +
-                        "</html>");
-                writer.flush();
-
+                        "</h1>", writer);
             }
             else {
                 new FileServer().getFile(uri,outputStream);
@@ -62,5 +52,18 @@ public class ServerConnector extends Thread {
     //Get Uri from HTTP Request
     public String getUri(String uri) {
         return uri.split(" ", 3)[1];
+    }
+
+    public static void htmlResponse(String html, PrintWriter writer) {
+        writer.write("HTTP/1.1 200 OK\r\n" +
+                "Server: JavaServer\r\n" +
+                "Content-Type: text \r\n" +
+                "Connection: close\r\n\r\n" +
+                "<html>" +
+                "<body>" +
+                html +
+                "</body>" +
+                "</html>");
+        writer.flush();
     }
 }
