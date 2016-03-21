@@ -30,8 +30,23 @@ public class ServerConnector extends Thread {
             System.out.println(httpRequest);
             String uri = getUri(httpRequest);
 
-            if(uri.equals("/") || uri.equals("index.html")){
+            if(uri.equals("/") || uri.equals("index.html") || uri.equals("")){
                 new FileServer().getFile("index.html", outputStream);
+            }
+            else if (uri.contains("calculate")) {
+                writer.write("HTTP/1.1 200 OK\r\n" +
+                        "Server: JavaServer\r\n" +
+                        "Content-Type: text \r\n" +
+                        "Connection: close\r\n\r\n" +
+                        "<html>" +
+                        "<body>" +
+                        "<h1> Answer: " +
+                        new Calculator(uri).calc() +
+                        "</h1>" +
+                        "</body>" +
+                        "</html>");
+                writer.flush();
+
             }
             else {
                 new FileServer().getFile(uri,outputStream);
